@@ -1,0 +1,14 @@
+﻿@model _1234.Models.Product
+@{
+    ViewBag.Title = Model.Name;
+}
+<h2>Товар @Model.Name</h2>
+<div>
+    <dl class="dl-horizontal">
+        <dt>Идентификатор</dt>
+        <dd>@Model.Id</dd>
+
+        <dt>Кол-во на складе</dt>
+        <dd>@Model.Count</dd>
+    </dl>
+</div>
