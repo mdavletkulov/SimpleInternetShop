@@ -1,0 +1,39 @@
+﻿@model IEnumerable<_1234.Models.Cart.Order>
+@{
+    ViewBag.Title = "Все заказы";
+}
+
+        @foreach (var order in Model)
+        {
+
+<ul class="list-group">
+<li class="list-group-item">Номер заказа: @order.Id</li>
+  <li class="list-group-item">Фамилия: @order.FirstName</li>
+  <li class="list-group-item">Имя: @order.SecondName</li>
+  <li class="list-group-item">Отчество: @order.ThirdName</li>
+  <li class="list-group-item">Телефон: @order.Phone</li>
+  <li class="list-group-item">E-mail: @order.Email</li>
+</ul>
+             
+<table class="table table-dark table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Товар</th>
+            <th scope="col">Кол-во</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Итого</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in order.OrderLines)
+        {
+                <tr>
+                    <th style="width: 40%">@item.Product.Name</th>
+                    <td style="width: 15%">@item.Count</td>
+                    <td style="width: 15%">@item.Product.Price</td>
+                    <td style="width: 30%">@((item.Count * item.Product.Price).ToString())</td>
+                </tr>
+        }
+    </tbody>
+</table>
+}  

@@ -2,22 +2,34 @@
 @{
     ViewBag.Title = "Все товары";
 }
-<table class="table table-dark">
+
+<h3 class="text-danger">@TempData["countError"]</h3>
+
+<table class="table table-dark table-striped table-hover">
     <thead>
         <tr>
             <th scope="col">Название</th>
             <th scope="col">Цена</th>
             <th scope="col">Описание</th>
+            <th scope="col">Кол-во</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <th scope="row">@item.Name</th>
-                <td>@item.Price</td>
-                <td>@item.Description</td>
-            </tr>
+            <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                <tr>
+                    <th style="width: 20%">@item.Name</th>
+                    <td style="width: 15%">@item.Price</td>
+                    <td style="width: 45%">@item.Description</td>
+                    <td style="width: 10%"><input type="number" onkeyup="if(this.value<0){this.value= this.value * -1}" name="quantity" class="form-control" /></td>
+                    <td style="width: 10%">
+                        <input hidden="hidden" asp-for="@item.Id" name="productId" class="form-control" />
+                        <input class="btn btn-default text-primary" value="Добавить в корзину" type="submit" />
+                    </td>
+                </tr>
+            </form>
         }
     </tbody>
 </table>

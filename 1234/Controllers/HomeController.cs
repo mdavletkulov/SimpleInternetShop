@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using _1234.Models;
 using _1234.Models.Repository.ProductRepository;
+using System.Dynamic;
 
 namespace _1234.Controllers
 {
@@ -16,7 +17,9 @@ namespace _1234.Controllers
 
         public ActionResult Index()
         {
-            return View(ProductRepository.Get());
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Products = ProductRepository.Get();
+            return View(mymodel);
         }
 
         public ActionResult Create()

@@ -4,17 +4,13 @@
 }
 <h2>Товар @Model.Name</h2>
 <div>
-    <dl class="dl-horizontal">
-        <dt>Идентификатор</dt>
-        <dd>@Model.Id</dd>
-
-        <dt>Кол-во на складе</dt>
-        <dd>@Model.Count</dd>
-
-        <dt>Цена</dt>
-        <dd>@Model.Price</dd>
-
-        <dt>Описание</dt>
-        <dd>@Model.Description</dd>
-    </dl>
+    <ul class="list-group">
+        <li class="list-group-item">Идентификатор: @Model.Id</li>
+        <li class="list-group-item">Кол-во на складе: @Model.Count</li>
+        <li class="list-group-item">Цена: @Model.Price</li>
+        <li class="list-group-item">Описание: @Model.Description</li>
+    </ul>
+</div>
+<div style="padding: 15px">
+    <a class="btn btn-primary px-6" role="button" asp-action="Index">Назад</a>
 </div>

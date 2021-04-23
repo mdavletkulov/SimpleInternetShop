@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using _1234.Models.Repository.ProductRepository;
+using _1234.Models.Repository.OrderRepository;
+using _1234.Models.Repository.OrderLineRepository;
 
 namespace _1234
 {
@@ -35,6 +37,11 @@ namespace _1234
                 options.UseMySQL(connection));
 
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IOrderLineRepository, OrderLineRepository>();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession();
 
             services.AddControllersWithViews();
         }
@@ -55,6 +62,7 @@ namespace _1234
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();

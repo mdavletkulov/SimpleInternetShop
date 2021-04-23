@@ -1,0 +1,78 @@
+﻿@model _1234.Models.Cart.Cart
+@{
+    ViewBag.Title = "Корзина";
+}
+
+<h3 class="text-danger px-2">@TempData["CartError"]</h3>
+<h3 class="text-success px-2">@TempData["successOrderCreation"]</h3>
+
+<div class="container">
+    <table class="table table-dark table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 30%">Название</th>
+                <th scope="col" style="width: 15%">Цена</th>
+                <th scope="col" style="width: 15%">Кол-во</th>
+                <th scope="col" style="width: 20%">Итого</th>
+                <th class="text-center" scope="col" style="width: 20%"><a asp-action="RemoveAll" asp-controller="Cart">Удалить все</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Lines)
+            {
+                <tr>
+                    <th style="width: 30%">@item.Product.Name</th>
+                    <td style="width: 15%">@item.Product.Price</td>
+                    <td style="width: 15%">@item.Quantity</td>
+                    <td style="width: 20%">@((item.Quantity * item.Product.Price).ToString())</td>
+                    <td class="text-center" style="width: 20%">
+                        <a asp-action="RemoveFromCart" asp-controller="Cart" asp-route-productId="@item.Product.Id">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">Общая стоимость: </td>
+                <td class="text-center">
+                    @Model.ComputePrice().ToString()
+                </td>
+            </tr>
+        </tfoot>
+
+    </table>
+    <div class="container">
+        <form asp-action="ConfirmOrder" asp-controller="Cart" method="post">
+            <div class="form-group">
+                <label class="control-label">Фамилия</label>
+                <input type="text" name="FirstName" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Имя</label>
+                <input type="text" name="SecondName" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Отчество</label>
+                <input type="text" name="ThirdName" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Телефон, формат: 123-456-7890</label>
+                <input type="tel" name="Phone" class="form-control"
+                       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">E-mail</label>
+                <input type="email" name="Email" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Отправить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        <a class="btn btn-primary px-6" role="button" asp-action="Index" asp-controller="Products">
+            Вернуться к покупкам
+        </a>
+    </div>
+
+</div>
