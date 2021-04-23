@@ -1,0 +1,23 @@
+﻿@model IEnumerable<_1234.Models.Product>
+@{
+    ViewBag.Title = "Все товары";
+}
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Описание</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Name</th>
+                <td>@item.Price</td>
+                <td>@item.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>

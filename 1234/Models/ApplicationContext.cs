@@ -8,8 +8,7 @@ namespace _1234.Models
     {
         public DbSet<Product> Products { get; set; }
 
-        public ApplicationContext(DbContextOptions<ApplicationContext> options)
-            : base(options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
         }
     }

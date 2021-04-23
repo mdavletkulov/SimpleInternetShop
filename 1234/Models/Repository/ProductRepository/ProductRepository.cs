@@ -47,6 +47,8 @@ namespace _1234.Models.Repository.ProductRepository
             Product currentItem = Get(product.Id);
             currentItem.Name = product.Name;
             currentItem.Count = product.Count;
+            currentItem.Price = product.Price;
+            currentItem.Description = product.Description;
 
             Context.Products.Update(currentItem);
             Context.SaveChanges();
