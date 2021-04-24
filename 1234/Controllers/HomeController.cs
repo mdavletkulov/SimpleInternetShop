@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using _1234.Models;
 using _1234.Models.Repository.ProductRepository;
 using System.Dynamic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _1234.Controllers
 {
@@ -15,6 +16,7 @@ namespace _1234.Controllers
             ProductRepository = productRepository;
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
             dynamic mymodel = new ExpandoObject();
@@ -22,18 +24,21 @@ namespace _1234.Controllers
             return View(mymodel);
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public ActionResult Create(Product product)
         {
             ProductRepository.Create(product);
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult Details(int? id)
         {
             if (id != null)
@@ -43,6 +48,7 @@ namespace _1234.Controllers
             return NotFound();
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Edit(int? id)
         {
             if (id != null)
@@ -55,6 +61,7 @@ namespace _1234.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Edit(Product product)
         {
             ProductRepository.Update(product);
@@ -63,6 +70,7 @@ namespace _1234.Controllers
 
         [HttpGet]
         [ActionName("Delete")]
+        [Authorize(Roles = "admin")]
         public IActionResult ConfirmDelete(int? id)
         {
             if (id != null)
@@ -73,6 +81,7 @@ namespace _1234.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(int? id)
         {
             if (id != null)
@@ -84,29 +93,4 @@ namespace _1234.Controllers
         }
 
     }
-
-
-
-    //private readonly ILogger<HomeController> _logger;
-
-    //public HomeController(ILogger<HomeController> logger)
-    //{
-    //    _logger = logger;
-    //}
-
-    //public IActionResult Index()
-    //{
-    //    return View();
-    //}
-
-    //public IActionResult Privacy()
-    //{
-    //    return View();
-    //}
-
-    //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    //public IActionResult Error()
-    //{
-    //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    //}
 }

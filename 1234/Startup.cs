@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using _1234.Models.Repository.ProductRepository;
 using _1234.Models.Repository.OrderRepository;
 using _1234.Models.Repository.OrderLineRepository;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using _1234.Models.Repository.UserRepository;
 
 namespace _1234
 {
@@ -39,9 +41,17 @@ namespace _1234
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IOrderLineRepository, OrderLineRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddDistributedMemoryCache();
             services.AddSession();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                    {
+                         options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                         options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                    });
 
             services.AddControllersWithViews();
         }
@@ -65,6 +75,7 @@ namespace _1234
             app.UseSession();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

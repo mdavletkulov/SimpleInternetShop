@@ -16,15 +16,12 @@ namespace _1234.Controllers
     {
         private IProductRepository ProductRepository;
         private IOrderRepository OrderRepository;
-        private IOrderLineRepository OrderLineRepository;
 
         public CartController(IProductRepository productRepository,
-            IOrderRepository orderRepository,
-            IOrderLineRepository orderLineRepository)
+            IOrderRepository orderRepository)
         {
             ProductRepository = productRepository;
             OrderRepository = orderRepository;
-            OrderLineRepository = orderLineRepository;
         }
 
         public ActionResult Index()
@@ -50,14 +47,13 @@ namespace _1234.Controllers
             if (product != null) {
                 int productCount = ProductRepository.Get(productId).Count;
 
-                if (quantity is 0 or null) {
-                }
-
-                if (quantity > productCount) {
-                    TempData["countError"] = "Товара не хватает на складе!";
+                if (quantity is 0) {
+                    TempData["countError"] = "Кол-во не может быть нулевым!";
                     return RedirectToAction("Index", "Products");
                 }
-                if (quantity + GetCartProductCount(productId) > productCount) {
+
+                if (quantity > productCount ||
+                    quantity + GetCartProductCount(productId) > productCount) {
                     TempData["countError"] = "Товара не хватает на складе!";
                     return RedirectToAction("Index", "Products");
                 }

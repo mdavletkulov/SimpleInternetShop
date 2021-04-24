@@ -24,5 +24,9 @@
     <Folder Include="Models\Repository\OrderRepository\" />
     <Folder Include="Models\Repository\OrderLineRepository\" />
     <Folder Include="Views\Order\" />
+    <Folder Include="Models\Users\" />
+    <Folder Include="Models\Login\" />
+    <Folder Include="Models\Repository\UserRepository\" />
+    <Folder Include="Views\Account\" />
   </ItemGroup>
 </Project>
